@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TOUR JAPAN</title>
+  
+  <!-- גופן Assistant -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- הגדרת אייקון למסך הבית -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --primary-soft: #e8eef6;
+      --sakura-pink: #fdf2f4;
+      --sakura-accent: #e28292;
+      --sakura-badge: #fce7eb;
+      --bg: #fafbfc;
+      --card-bg: #ffffff;
+      --text-main: #243242;
+      --text-muted: #6b7c93;
+      --border: #edf2f7;
+      --card-border: #f1f5f9;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Assistant', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 70px;
+    }
+
+    /* כותרת עליונה */
+    header {
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      border: 1.5px solid #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+    }
+
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .trip-dates {
+      font-size: 0.82rem;
+      color: var(--sakura-accent);
+      background: var(--sakura-pink);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* סליידר ימים */
+    .days-slider {
+      display: flex;
+      overflow-x: auto;
+      background: #ffffff;
+      padding: 12px 16px;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      scrollbar-width: none;
+    }
+    .days-slider::-webkit-scrollbar { display: none; }
+
+    .day-pill {
+      flex: 0 0 auto;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      background: #f8fafc;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .day-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.25);
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 22px;
+      padding: 22px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .city-badge {
+      display: inline-block;
+      background: var(--sakura-badge);
+      color: var(--sakura-accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 14px;
+    }
+
+    .day-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .day-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .section-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+
+    .desc-text {
+      font-size: 1.02rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* תיבת לוגיסטיקה ומלון */
+    .info-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    .info-box strong {
+      color: var(--primary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* כפתור ניווט */
+    .map-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: linear-gradient(135deg, #4a6fa5 0%, #3b5984 100%);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 20px;
+      box-shadow: 0 4px 14px rgba(74, 111, 165, 0.22);
+      transition: opacity 0.2s ease;
+    }
+    .map-btn:active { opacity: 0.9; }
+
+    /* אזור שיתוף ותמונות */
+    .community-card {
+      margin-top: 22px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .comment-item {
+      background: #fdf8f9;
+      border-right: 3px solid var(--sakura-accent);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: var(--sakura-accent);
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+
+    .input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 0.92rem;
+      background: #fafbfc;
+      transition: border 0.2s ease;
+    }
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-action {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 11px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .photos-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .photos-gallery img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-photo {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1.5px dashed var(--primary);
+      width: 100%;
+      padding: 11px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- כותרת ראשית ומיתוג -->
+  <header>
+    <div class="brand-wrap">
+      <img src="icon.png" alt="TOUR JAPAN" class="brand-icon">
+      <div class="brand-text">
+        <span class="brand-title">TOUR JAPAN</span>
+        <span class="brand-sub">מסלול אישי ביפן</span>
+      </div>
+    </div>
+    <div class="trip-dates">23.9 – 8.10</div>
+  </header>
+
+  <!-- סרגל ימים עליון -->
+  <div class="days-slider" id="daysSlider"></div>
+
+  <!-- תוכן היום הנבחר -->
+  <div class="container" id="mainContent"></div>
+
+  <script>
+    const itinerary = [
+      { day: 1, date: "23.09.26", city: "טוקיו", title: "נחיתה בטוקיו", sites: "סיור רגלי באזור המלון, התארגנות ומציאת מסעדה לערב.", hotel: "Imperial Hotel Tokyo", logistics: "איסוף מהשדה (300$). לברר מסעדה למחר.", map: "Imperial Hotel Tokyo" },
+      { day: 2, date: "24.09.26", city: "טוקיו", title: "מקדש מייג'י ושיבויה", sites: "מקדש Meiji, רחוב Harajuku Takeshita, מעבר החציה Shibuya, תצפית Shibuya Sky.", hotel: "Imperial Hotel Tokyo", logistics: "רכישת כרטיסים לתצפית מראש.", map: "Shibuya Crossing Tokyo" },
+      { day: 3, date: "25.09.26", city: "טוקיו", title: "אסאקוסה ואקיהברה", sites: "מקדש Senso-ji באסאקוסה, רחוב הקניות Nakamise, רובע האלקטרוניקה Akihabara.", hotel: "Imperial Hotel Tokyo", logistics: "הזמנת כרטיסים ל-TeamLab.", map: "Senso-ji Asakusa Tokyo" },
+      { day: 4, date: "26.09.26", city: "טוקיו", title: "שינג'וקו ומוזיאון דיגיטלי", sites: "מוזיאון TeamLab Planets, פארק Shinjuku Gyoen, סמטאות Omoide Yokocho בערב.", hotel: "Imperial Hotel Tokyo", logistics: "נעלי הליכה נוחות.", map: "teamLab Planets TOKYO" },
+      { day: 5, date: "27.09.26", city: "האקונה", title: "האקונה והר פוג'י", sites: "נסיעה להאקונה, שייט באגם אשי (Lake Ashi), רכבל Owakudani, תצפית פוג'י ומעיינות חמים.", hotel: "Hakone Onsen Ryokan", logistics: "הפעלת JR Pass / כרטיס נסיעה מקומי.", map: "Lake Ashi Hakone" },
+      { day: 6, date: "28.09.26", city: "טאקאיאמה", title: "האלפים היפניים וטאקאיאמה", sites: "העיר העתיקה Sanmachi Suji, בתי עץ מסורתיים, טעימות סאקה ובקר הידה.", hotel: "Takayama Ouan", logistics: "שליחת מזוודות לקיוטו אם נדרש.", map: "Sanmachi Suji Takayama" },
+      { day: 7, date: "29.09.26", city: "שירקאווה-גו וקנאזאווה", title: "כפר הקש וקנאזאווה", sites: "שירקאווה-גו (Shirakawa-go) בתי גאשו-זוקורי, המשך לגני Kenroku-en בקנאזאווה.", hotel: "Hotel Intergate Kanazawa", logistics: "נסיעה באוטובוס שמור מראש.", map: "Shirakawa-go" },
+      { day: 8, date: "30.09.26", city: "קיוטו", title: "הגעה לקיוטו ומקדש הזהב", sites: "מקדש מוזהב Kinkaku-ji, טירת Nijo, שוק האוכל Nishiki Market.", hotel: "Kyoto Granbell Hotel", logistics: "הגעה ברכבת לקיוטו בצהריים.", map: "Kinkaku-ji Kyoto" },
+      { day: 9, date: "01.10.26", city: "קיוטו", title: "יער הבמבוק וגיאון", sites: "חורשת הבמבוק אראשיאמה (Arashiyama), פארק הקופים Iwatayama, רובע הגיישות Gion בערב.", hotel: "Kyoto Granbell Hotel", logistics: "הגעה מוקדמת לבמבוק לצילומים.", map: "Arashiyama Bamboo Grove Kyoto" },
+      { day: 10, date: "02.10.26", city: "קיוטו ונארה", title: "מקדש פושימי אינארי ונארה", sites: "אלפי שערי הטורי ב-Fushimi Inari, נסיעה לנארה (Nara Park) ומקדש Todai-ji עם האיילים.", hotel: "Kyoto Granbell Hotel", logistics: "נסיעה קלה ברכבת לנארה.", map: "Fushimi Inari Taisha" },
+      { day: 11, date: "03.10.26", city: "הירושימה ומיאג'ימה", title: "הירושימה והאי מיאג'ימה", sites: "פארק השלום ומוזיאון הירושימה, מעבורת לאי Miyajima ושער הטורי הצף בים.", hotel: "Sheraton Grand Hiroshima", logistics: "נסיעה בשינקנסן בבוקר.", map: "Itsukushima Shrine Miyajima" },
+      { day: 12, date: "04.10.26", city: "אוסקה", title: "הגעה לאוסקה ודודונבורי", sites: "טירת אוסקה (Osaka Castle), רחוב האוכל התוסס Dotonbori בלילה, טעימות טקויאקי.", hotel: "Cross Hotel Osaka", logistics: "נסיעה של שעה וחצי ברכבת.", map: "Dotonbori Osaka" },
+      { day: 13, date: "05.10.26", city: "אוסקה", title: "תצפיות וקניות באוסקה", sites: "תצפית Umeda Sky Building, שוק Kuromon Ichiba, קניות ב-Shinsekai.", hotel: "Cross Hotel Osaka", logistics: "זמן חופשי לקניות ומזכרות.", map: "Umeda Sky Building Osaka" },
+      { day: 14, date: "06.10.26", city: "טוקיו", title: "חזרה לטוקיו ורובע גינזה", sites: "נסיעת שינקנסן חזרה לטוקיו, קניות יוקרה בגינזה, מגדל טוקיו בלילה.", hotel: "Tokyo Prince Hotel", logistics: "נסיעה בשינקנסן מאוסקה לטוקיו.", map: "Ginza Tokyo" },
+      { day: 15, date: "07.10.26", city: "טוקיו", title: "יום אחרון – פרידה מיפן", sites: "אודהיבה (Odaiba), קניון Aqua City, פסל הגנדאם, ארוחת ערב חגיגית לסיום.", hotel: "Tokyo Prince Hotel", logistics: "אריזת מזוודות והכנה לשדה.", map: "Odaiba Statue of Liberty Tokyo" },
+      { day: 16, date: "08.10.26", city: "טוקיו / המראה", title: "טיסה הביתה לישראל", sites: "העברה לשדה התעופה (Narita / Haneda) והמראה הביתה מלאי חוויות!", hotel: "טיסה הביתה", logistics: "להגיע לשדה 3 שעות לפני המראה.", map: "Narita Airport Tokyo" }
+    ];
+
+    let currentDayIndex = 0;
+
+    function renderSlider() {
+      const slider = document.getElementById('daysSlider');
+      slider.innerHTML = itinerary.map((item, idx) => `
+        <button class="day-pill ${idx === currentDayIndex ? 'active' : ''}" onclick="selectDay(${idx})">
+          יום ${item.day} • ${item.city}
+        </button>
+      `).join('');
+    }
+
+    function renderDay(idx) {
+      const item = itinerary[idx];
+      const container = document.getElementById('mainContent');
+      const comments = getComments(item.day);
+      const photos = getPhotos(item.day);
+
+      container.innerHTML = `
+        <div class="card">
+          <span class="city-badge">🌸 ${item.city}</span>
+          <div class="day-header">
+            <h1 class="day-title">יום ${item.day}: ${item.title}</h1>
+            <span class="day-date">${item.date}</span>
+          </div>
+
+          <div class="section-label">מקומות ואתרים:</div>
+          <div class="desc-text">${item.sites}</div>
+
+          <div class="info-box">
+            <strong>💡 לוגיסטיקה וטיפים:</strong>
+            ${item.logistics}
+            <div style="margin-top: 6px;">🏨 <strong>מלון:</strong> ${item.hotel}</div>
+          </div>
+
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map)}" target="_blank">
+            📍 פתח מפה וניווט ב-Google Maps
+          </a>
+
+          <div class="community-card">
+            <div class="section-label">💬 טיפים והמלצות מהשטח:</div>
+            <div class="comments-list" id="commentsList">
+              ${comments.length === 0 ? '<div style="font-size:0.88rem; color:var(--text-muted);">אין עדיין תגובות ליום זה. מוזמנים להוסיף טיפ ראשון!</div>' : 
+                comments.map(c => `
+                  <div class="comment-item">
+                    <div class="comment-author">${c.name}:</div>
+                    <div>${c.text}</div>
+                  </div>
+                `).join('')}
+            </div>
+
+            <div class="input-row">
+              <input type="text" id="authorName" placeholder="השם שלך">
+              <textarea id="commentText" rows="2" placeholder="המלצה על מקום / מסעדה / טיפ..."></textarea>
+              <button class="btn-action" onclick="addComment(${item.day})">הוסף המלצה</button>
+            </div>
+
+            <div class="section-label" style="margin-top: 20px;">📸 תמונות מהיום:</div>
+            <div class="photos-gallery" id="photosGallery">
+              ${photos.map(p => `<img src="${p}" onclick="window.open('${p}')">`).join('')}
+            </div>
+            <input type="file" accept="image/*" id="photoInput" style="display:none;" onchange="uploadPhoto(event, ${item.day})">
+            <button class="btn-photo" onclick="document.getElementById('photoInput').click()">📷 העלאת תמונה מיום זה</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectDay(idx) {
+      currentDayIndex = idx;
+      renderSlider();
+      renderDay(idx);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getComments(day) {
+      return JSON.parse(localStorage.getItem('japan_comments_' + day) || '[]');
+    }
+
+    function addComment(day) {
+      const name = document.getElementById('authorName').value.trim() || 'מטייל/ת';
+      const text = document.getElementById('commentText').value.trim();
+      if (!text) return;
+      const comments = getComments(day);
+      comments.push({ name, text });
+      localStorage.setItem('japan_comments_' + day, JSON.stringify(comments));
+      renderDay(currentDayIndex);
+    }
+
+    function getPhotos(day) {
+      return JSON.parse(localStorage.getItem('japan_photos_' + day) || '[]');
+    }
+
+    function uploadPhoto(event, day) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const photos = getPhotos(day);
+        photos.push(e.target.result);
+        localStorage.setItem('japan_photos_' + day, JSON.stringify(photos));
+        renderDay(currentDayIndex);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    renderSlider();
+    renderDay(0);
+  </script>
+</body>
+</html>
