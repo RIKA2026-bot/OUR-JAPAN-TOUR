@@ -1,15 +1,15 @@
-0ף<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>OUR JAPAN TOUR</title>
-  
-  <!-- גופן Assistant -->
+  <title>OUR JAPAN TOUR</title>
+
+  <!-- פונט Assistant -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <!-- הגדרת אייקון למסך הבית -->
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
@@ -24,11 +24,11 @@
       --bg: #fafbfc;
       --card-bg: #ffffff;
       --text-main: #243242;
-      --text-muted: #6b7c93;
-      --border: #edf2f7;
-      --card-border: #f1f5f9;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
+      --text-sub: #637381;
+      --line: #edf2f7;
+      --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --card-shadow: 0 10px 25px rgba(74, 111, 165, 0.08);
+      --radius: 20px;
     }
 
     * {
@@ -42,429 +42,630 @@
     body {
       background-color: var(--bg);
       color: var(--text-main);
-      line-height: 1.6;
-      padding-bottom: 70px;
+      padding-bottom: 50px;
+      direction: rtl;
     }
 
     /* כותרת עליונה */
     header {
-      background: #ffffff;
       position: sticky;
       top: 0;
-      z-index: 50;
-      border-bottom: 1px solid var(--border);
-      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--nav-shadow);
+      padding: 14px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      align-items: center;
     }
 
-    .brand-wrap {
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .brand-icon {
+    .brand-logo {
       width: 44px;
       height: 44px;
-      border-radius: 14px;
+      border-radius: 12px;
       object-fit: cover;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      border: 1.5px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 1.5px solid #fff;
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-size: 1.25rem;
+    .brand-text h1 {
+      font-size: 19px;
       font-weight: 800;
-      letter-spacing: 0.5px;
       color: var(--primary);
+      line-height: 1.2;
+      letter-spacing: 0.5px;
     }
 
-    .brand-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 500;
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-sub);
     }
 
-    .trip-dates {
-      font-size: 0.82rem;
-      color: var(--sakura-accent);
+    .date-badge {
       background: var(--sakura-pink);
-      padding: 5px 10px;
+      color: var(--sakura-accent);
+      padding: 6px 12px;
       border-radius: 20px;
+      font-size: 12px;
       font-weight: 700;
+      border: 1px solid var(--sakura-badge);
     }
 
-    /* סליידר ימים */
-    .days-slider {
+    /* פס גלילת ימים אופקי */
+    .days-scroller-container {
+      background: #fff;
+      padding: 12px 0 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .days-scroller {
       display: flex;
-      overflow-x: auto;
-      background: #ffffff;
-      padding: 12px 16px;
       gap: 10px;
-      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      padding: 0 16px;
       scrollbar-width: none;
     }
-    .days-slider::-webkit-scrollbar { display: none; }
+
+    .days-scroller::-webkit-scrollbar {
+      display: none;
+    }
 
     .day-pill {
       flex: 0 0 auto;
       padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      background: #f8fafc;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      cursor: pointer;
+      border-radius: 30px;
+      background: #f1f4f8;
+      color: var(--text-sub);
+      font-size: 14px;
       font-weight: 600;
+      border: none;
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .day-pill.active {
       background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.25);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.35);
     }
 
-    .container {
-      padding: 16px;
-      max-width: 600px;
-      margin: auto;
+    /* תוכן יום הטיול */
+    main {
+      padding: 20px 16px;
+      max-width: 650px;
+      margin: 0 auto;
     }
 
     .card {
       background: var(--card-bg);
-      border-radius: 22px;
-      padding: 22px;
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-md);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.03);
     }
 
-    .city-badge {
-      display: inline-block;
-      background: var(--sakura-badge);
-      color: var(--sakura-accent);
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-    }
-
-    .day-header {
+    .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       margin-bottom: 14px;
     }
 
-    .day-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #1e293b;
-    }
-
-    .day-date {
-      font-size: 0.9rem;
-      color: var(--text-muted);
+    .day-date-label {
+      font-size: 14px;
+      color: var(--text-sub);
       font-weight: 600;
     }
 
-    .section-label {
-      font-size: 0.95rem;
+    .city-badge {
+      background: var(--sakura-pink);
+      color: var(--sakura-accent);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 13px;
       font-weight: 700;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a202c;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .section-box {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .section-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #4a5568;
+    }
+
+    .info-box {
+      background: #f8fafc;
+      border-right: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
       color: #475569;
       margin-bottom: 6px;
-      margin-top: 16px;
     }
 
-    .desc-text {
-      font-size: 1.02rem;
-      color: #334155;
-      line-height: 1.6;
+    .info-item:last-child {
+      margin-bottom: 0;
     }
 
-    /* תיבת לוגיסטיקה ומלון */
-    .info-box {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin-top: 18px;
-      font-size: 0.95rem;
-    }
-
-    .info-box strong {
-      color: var(--primary);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    /* כפתור ניווט */
-    .map-btn {
+    /* כפתור מפה וניווט */
+    .btn-maps {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
-      background: linear-gradient(135deg, #4a6fa5 0%, #3b5984 100%);
-      color: #ffffff;
+      padding: 14px;
+      background: linear-gradient(135deg, #4a6fa5, #3b5984);
+      color: #fff;
       text-decoration: none;
-      padding: 13px;
       border-radius: 14px;
+      font-size: 16px;
       font-weight: 700;
-      font-size: 1rem;
-      margin-top: 20px;
-      box-shadow: 0 4px 14px rgba(74, 111, 165, 0.22);
-      transition: opacity 0.2s ease;
-    }
-    .map-btn:active { opacity: 0.9; }
-
-    /* אזור שיתוף ותמונות */
-    .community-card {
-      margin-top: 22px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
+      box-shadow: 0 4px 14px rgba(74, 111, 165, 0.35);
+      transition: transform 0.15s ease;
     }
 
-    .comments-list {
+    .btn-maps:active {
+      transform: scale(0.98);
+    }
+
+    /* אזור שיתוף קבוצתי ותגובות */
+    .community-box {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .community-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #2d3748;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comment-list {
+      margin-bottom: 14px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 10px;
     }
 
-    .comment-item {
-      background: #fdf8f9;
-      border-right: 3px solid var(--sakura-accent);
+    .comment-bubble {
+      background: #f8fafc;
+      border-radius: 12px;
       padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 0.92rem;
+      font-size: 13px;
+      border: 1px solid var(--line);
     }
 
-    .comment-author {
-      font-weight: 700;
-      color: var(--sakura-accent);
-      font-size: 0.85rem;
-      margin-bottom: 2px;
+    .comment-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-sub);
+      font-size: 11px;
+      margin-bottom: 4px;
     }
 
-    .input-row {
+    .comment-img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .comment-form {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 14px;
     }
 
-    input[type="text"], textarea {
+    .comment-form input,
+    .comment-form textarea {
       width: 100%;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 11px;
-      font-size: 0.92rem;
-      background: #fafbfc;
-      transition: border 0.2s ease;
-    }
-    input[type="text"]:focus, textarea:focus {
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
       outline: none;
+      direction: rtl;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus {
       border-color: var(--primary);
     }
 
-    .btn-action {
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 11px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-
-    .photos-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .photos-gallery img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .btn-photo {
-      background: #ffffff;
+    .file-upload-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
       color: var(--primary);
-      border: 1.5px dashed var(--primary);
-      width: 100%;
-      padding: 11px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
       cursor: pointer;
-      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .file-upload-label input {
+      display: none;
+    }
+
+    .btn-comment {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-comment:active {
+      background: #dbe4f0;
     }
   </style>
 </head>
 <body>
 
-  <!-- כותרת ראשית ומיתוג -->
+  <!-- כותרת עליונה -->
   <header>
-    <div class="brand-wrap">
-      <img src="icon.png" alt="TOUR JAPAN" class="brand-icon">
+    <div class="brand">
+      <img src="icon.png" alt="OUR JAPAN TOUR" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-text">
-        <span class="brand-title">TOUR JAPAN</span>
-        <span class="brand-sub">מסלול אישי ביפן</span>
+        <h1>OUR JAPAN TOUR</h1>
+        <p>מסלול אישי ביפן</p>
       </div>
     </div>
-    <div class="trip-dates">23.9 – 8.10</div>
+    <div class="date-badge">23.9 – 8.10</div>
   </header>
 
-  <!-- סרגל ימים עליון -->
-  <div class="days-slider" id="daysSlider"></div>
+  <!-- פס ימים אופקי -->
+  <div class="days-scroller-container">
+    <div class="days-scroller" id="daysScroller"></div>
+  </div>
 
-  <!-- תוכן היום הנבחר -->
-  <div class="container" id="mainContent"></div>
+  <!-- תוכן הכרטיסייה היומית -->
+  <main>
+    <div class="card" id="dayCard">
+      <!-- התוכן ייטען אוטומטית ע"י JavaScript -->
+    </div>
+  </main>
 
   <script>
     const itinerary = [
-      { day: 1, date: "23.09.26", city: "טוקיו", title: "נחיתה בטוקיו", sites: "סיור רגלי באזור המלון, התארגנות ומציאת מסעדה לערב.", hotel: "Imperial Hotel Tokyo", logistics: "איסוף מהשדה (300$). לברר מסעדה למחר.", map: "Imperial Hotel Tokyo" },
-      { day: 2, date: "24.09.26", city: "טוקיו", title: "מקדש מייג'י ושיבויה", sites: "מקדש Meiji, רחוב Harajuku Takeshita, מעבר החציה Shibuya, תצפית Shibuya Sky.", hotel: "Imperial Hotel Tokyo", logistics: "רכישת כרטיסים לתצפית מראש.", map: "Shibuya Crossing Tokyo" },
-      { day: 3, date: "25.09.26", city: "טוקיו", title: "אסאקוסה ואקיהברה", sites: "מקדש Senso-ji באסאקוסה, רחוב הקניות Nakamise, רובע האלקטרוניקה Akihabara.", hotel: "Imperial Hotel Tokyo", logistics: "הזמנת כרטיסים ל-TeamLab.", map: "Senso-ji Asakusa Tokyo" },
-      { day: 4, date: "26.09.26", city: "טוקיו", title: "שינג'וקו ומוזיאון דיגיטלי", sites: "מוזיאון TeamLab Planets, פארק Shinjuku Gyoen, סמטאות Omoide Yokocho בערב.", hotel: "Imperial Hotel Tokyo", logistics: "נעלי הליכה נוחות.", map: "teamLab Planets TOKYO" },
-      { day: 5, date: "27.09.26", city: "האקונה", title: "האקונה והר פוג'י", sites: "נסיעה להאקונה, שייט באגם אשי (Lake Ashi), רכבל Owakudani, תצפית פוג'י ומעיינות חמים.", hotel: "Hakone Onsen Ryokan", logistics: "הפעלת JR Pass / כרטיס נסיעה מקומי.", map: "Lake Ashi Hakone" },
-      { day: 6, date: "28.09.26", city: "טאקאיאמה", title: "האלפים היפניים וטאקאיאמה", sites: "העיר העתיקה Sanmachi Suji, בתי עץ מסורתיים, טעימות סאקה ובקר הידה.", hotel: "Takayama Ouan", logistics: "שליחת מזוודות לקיוטו אם נדרש.", map: "Sanmachi Suji Takayama" },
-      { day: 7, date: "29.09.26", city: "שירקאווה-גו וקנאזאווה", title: "כפר הקש וקנאזאווה", sites: "שירקאווה-גו (Shirakawa-go) בתי גאשו-זוקורי, המשך לגני Kenroku-en בקנאזאווה.", hotel: "Hotel Intergate Kanazawa", logistics: "נסיעה באוטובוס שמור מראש.", map: "Shirakawa-go" },
-      { day: 8, date: "30.09.26", city: "קיוטו", title: "הגעה לקיוטו ומקדש הזהב", sites: "מקדש מוזהב Kinkaku-ji, טירת Nijo, שוק האוכל Nishiki Market.", hotel: "Kyoto Granbell Hotel", logistics: "הגעה ברכבת לקיוטו בצהריים.", map: "Kinkaku-ji Kyoto" },
-      { day: 9, date: "01.10.26", city: "קיוטו", title: "יער הבמבוק וגיאון", sites: "חורשת הבמבוק אראשיאמה (Arashiyama), פארק הקופים Iwatayama, רובע הגיישות Gion בערב.", hotel: "Kyoto Granbell Hotel", logistics: "הגעה מוקדמת לבמבוק לצילומים.", map: "Arashiyama Bamboo Grove Kyoto" },
-      { day: 10, date: "02.10.26", city: "קיוטו ונארה", title: "מקדש פושימי אינארי ונארה", sites: "אלפי שערי הטורי ב-Fushimi Inari, נסיעה לנארה (Nara Park) ומקדש Todai-ji עם האיילים.", hotel: "Kyoto Granbell Hotel", logistics: "נסיעה קלה ברכבת לנארה.", map: "Fushimi Inari Taisha" },
-      { day: 11, date: "03.10.26", city: "הירושימה ומיאג'ימה", title: "הירושימה והאי מיאג'ימה", sites: "פארק השלום ומוזיאון הירושימה, מעבורת לאי Miyajima ושער הטורי הצף בים.", hotel: "Sheraton Grand Hiroshima", logistics: "נסיעה בשינקנסן בבוקר.", map: "Itsukushima Shrine Miyajima" },
-      { day: 12, date: "04.10.26", city: "אוסקה", title: "הגעה לאוסקה ודודונבורי", sites: "טירת אוסקה (Osaka Castle), רחוב האוכל התוסס Dotonbori בלילה, טעימות טקויאקי.", hotel: "Cross Hotel Osaka", logistics: "נסיעה של שעה וחצי ברכבת.", map: "Dotonbori Osaka" },
-      { day: 13, date: "05.10.26", city: "אוסקה", title: "תצפיות וקניות באוסקה", sites: "תצפית Umeda Sky Building, שוק Kuromon Ichiba, קניות ב-Shinsekai.", hotel: "Cross Hotel Osaka", logistics: "זמן חופשי לקניות ומזכרות.", map: "Umeda Sky Building Osaka" },
-      { day: 14, date: "06.10.26", city: "טוקיו", title: "חזרה לטוקיו ורובע גינזה", sites: "נסיעת שינקנסן חזרה לטוקיו, קניות יוקרה בגינזה, מגדל טוקיו בלילה.", hotel: "Tokyo Prince Hotel", logistics: "נסיעה בשינקנסן מאוסקה לטוקיו.", map: "Ginza Tokyo" },
-      { day: 15, date: "07.10.26", city: "טוקיו", title: "יום אחרון – פרידה מיפן", sites: "אודהיבה (Odaiba), קניון Aqua City, פסל הגנדאם, ארוחת ערב חגיגית לסיום.", hotel: "Tokyo Prince Hotel", logistics: "אריזת מזוודות והכנה לשדה.", map: "Odaiba Statue of Liberty Tokyo" },
-      { day: 16, date: "08.10.26", city: "טוקיו / המראה", title: "טיסה הביתה לישראל", sites: "העברה לשדה התעופה (Narita / Haneda) והמראה הביתה מלאי חוויות!", hotel: "טיסה הביתה", logistics: "להגיע לשדה 3 שעות לפני המראה.", map: "Narita Airport Tokyo" }
+      {
+        day: 1,
+        date: "23.09.26",
+        city: "טוקיו 🌸",
+        title: "יום 1: נחיתה בטוקיו",
+        sites: "סיור רגלי באזור המלון, התארגנות ומציאת מסעדה לערב.",
+        logistics: "איסוף מהשדה ($300). לברר מסעדה למחר.",
+        hotel: "Imperial Hotel Tokyo",
+        mapQuery: "Imperial Hotel Tokyo"
+      },
+      {
+        day: 2,
+        date: "24.09.26",
+        city: "טוקיו",
+        title: "יום 2: מזרח טוקיו",
+        sites: "מקדש סנסו-ג'י (Sensō-ji), שוק רחוב נקאמיסה, שיט בנהר סומידה (Sumida) לאודאיבה, מופע TeamLab Planets.",
+        logistics: "להזמין כרטיסים ל-TeamLab מראש.",
+        hotel: "Imperial Hotel Tokyo",
+        mapQuery: "Sensoji Temple Tokyo"
+      },
+      {
+        day: 3,
+        date: "25.09.26",
+        city: "טוקיו",
+        title: "יום 3: מערב טוקיו המודרנית",
+        sites: "מקדש מייג'י (Meiji Jingu), פארק יויוגי, רחוב טקשיטה בהרג'וקו, מעבר החצייה בשיבויה ופסל האצ'יקו, נקודת התצפית Shibuya Sky.",
+        logistics: "להזמין Shibuya Sky לשעת השקיעה.",
+        hotel: "Imperial Hotel Tokyo",
+        mapQuery: "Shibuya Crossing Tokyo"
+      },
+      {
+        day: 4,
+        date: "26.09.26",
+        city: "טוקיו",
+        title: "יום 4: תרבות, גנים ויוקרה",
+        sites: "גני ארמון הקיסר, רובע גינזה לקניות ואוכל, מוזיאון גיבלי (Ghibli) במיטקה או רובע אקיהברה לחובבי אנימה וגאדג'טים.",
+        logistics: "לכרטיסי גיבלי נדרש שריון בתחילת החודש הקודם.",
+        hotel: "Imperial Hotel Tokyo",
+        mapQuery: "Imperial Palace East Gardens Tokyo"
+      },
+      {
+        day: 5,
+        date: "27.09.26",
+        city: "טוקיו ➔ האקונה",
+        title: "יום 5: מעבר להאקונה – נופי פוג'י ומעיינות",
+        sites: "נסיעה ברכבת Romancecar להאקונה, שייט בספינת פיראטים באגם אשי (Lake Ashi), רכבל לעמק הוולקני אוואקודאני (Owakudani), רחצה באונסן.",
+        logistics: "לרכוש Hakone Freepass.",
+        hotel: "Gora Kadan / ריוקאן מקומי בהאקונה",
+        mapQuery: "Hakone Ropeway Owakudani"
+      },
+      {
+        day: 6,
+        date: "28.09.26",
+        city: "האקונה ➔ טקאיאמה",
+        title: "יום 6: אל האלפים היפניים",
+        sites: "נסיעה ברכבת שינקנסן וברכבת נופית Hida Wide View לעיירה טקאיאמה (Takayama). סיור ברובע העתיק Sanmachi Suji וטעימות בשר בקר הידה (Hida Beef).",
+        logistics: "העברת מזוודות גדולות ישירות לקיוטו (Takuhaibin).",
+        hotel: "Honoki no Sato / Oyado Koto No Yume",
+        mapQuery: "Sanmachi Suji Takayama"
+      },
+      {
+        day: 7,
+        date: "29.09.26",
+        city: "שירקאווה-גו ➔ קנאזאווה",
+        title: "יום 7: בתי הקש בשירקאווה-גו",
+        sites: "סיור בוקר בשוק מיאגאווה, נסיעה באוטובוס לכפר המסורתי שיראקאווה-גו (Shirakawa-go) עם גגות הקש התלולים, המשך נסיעה לקנאזאווה.",
+        logistics: "להזמין מקום לאוטובוס Nohi Bus מראש.",
+        hotel: "Hotel Nikko Kanazawa",
+        mapQuery: "Shirakawa-go Historic Village"
+      },
+      {
+        day: 8,
+        date: "30.09.26",
+        city: "קנאזאווה ➔ קיוטו",
+        title: "יום 8: גני קנאזאווה והגעה לקיוטו",
+        sites: "גן קנרוקואן (Kenroku-en) – אחד משלושת הגנים היפים ביפן, רובע הסמוראים נאגאמאצ'י, שוק אומיצ'ו. אחר הצהריים רכבת לקיוטו.",
+        logistics: "רכבת Thunderbird / Shinkansen לקיוטו.",
+        hotel: "The Thousand Kyoto",
+        mapQuery: "Kenroku-en Garden Kanazawa"
+      },
+      {
+        day: 9,
+        date: "01.10.26",
+        city: "קיוטו ⛩️",
+        title: "יום 9: מזרח קיוטו וגיישות",
+        sites: "מקדש קיומיזו-דרה (Kiyomizu-dera) עם מרפסת העץ, סמטאות ניננזאקה וסאננזאקה, מקדש הכסף (Ginkaku-ji), שביל הפילוסופים, רובע גיון בערב.",
+        logistics: "מומלץ להתחיל מוקדם מאוד (07:30) כדי להימנע מעומס.",
+        hotel: "The Thousand Kyoto",
+        mapQuery: "Kiyomizu-dera Kyoto"
+      },
+      {
+        day: 10,
+        date: "02.10.26",
+        city: "קיוטו",
+        title: "יום 10: שערים אדומים ומקדש הזהב",
+        sites: "מקדש פושימי אינארי (Fushimi Inari-Taisha) ואלפי שערי הטורי האדומים, מקדש הזהב (Kinkaku-ji), גן האבנים ריואן-ג'י.",
+        logistics: "נעלי הליכה נוחות לעלייה בהר אינארי.",
+        hotel: "The Thousand Kyoto",
+        mapQuery: "Fushimi Inari Shrine Kyoto"
+      },
+      {
+        day: 11,
+        date: "03.10.26",
+        city: "אראשיאמה",
+        title: "יום 11: יער הבמבוק ואראשיאמה",
+        sites: "יער הבמבוק של אראשיאמה, מקדש טנריו-ג'י (Tenryu-ji), פארק הקופים איוואטאיאמה, גשר טוגטסוקיו.",
+        logistics: "שכירת אופניים באראשיאמה מומלצת מאוד.",
+        hotel: "The Thousand Kyoto",
+        mapQuery: "Arashiyama Bamboo Grove Kyoto"
+      },
+      {
+        day: 12,
+        date: "04.10.26",
+        city: "נארה ➔ אוסקה",
+        title: "יום 12: איילים בנארה והגעה לאוסקה",
+        sites: "נסיעה לנארה, פארק האיילים, מקדש טודאי-ג'י (פסל הבודהה הענק). המשך לאוסקה, ערב תוסס ברובע דוטונבורי (Dotonbori).",
+        logistics: "לקנות ביסקוויטים להאכלת האיילים בדוכנים מורשים.",
+        hotel: "Swissotel Nankai Osaka",
+        mapQuery: "Todai-ji Nara"
+      },
+      {
+        day: 13,
+        date: "05.10.26",
+        city: "אוסקה",
+        title: "יום 13: טירת אוסקה ואוכל רחוב",
+        sites: "טירת אוסקה (Osaka Castle) והפארק סביבה, שוק קורומון (Kuromon Ichiba) לטעימות מאכלי ים ורחוב, תצפית Umeda Sky Building.",
+        logistics: "לנסות טאקויאקי ואוקונומיאקי מקוריים.",
+        hotel: "Swissotel Nankai Osaka",
+        mapQuery: "Osaka Castle"
+      },
+      {
+        day: 14,
+        date: "06.10.26",
+        city: "הירושימה ומיאג'ימה",
+        title: "יום 14: טיול יום להירושימה ומיאג'ימה",
+        sites: "שינקנסן להירושימה, פארק השלום ומוזיאון הזיכרון, מעבורת לאי מיאג'ימה (Miyajima) ומקדש איצוקושימה עם השער הצף במים.",
+        logistics: "נסיעה מוקדמת ברכבת שינקנסן וחזרה ללינה באוסקה.",
+        hotel: "Swissotel Nankai Osaka",
+        mapQuery: "Itsukushima Shrine Miyajima"
+      },
+      {
+        day: 15,
+        date: "07.10.26",
+        city: "אוסקה ➔ טוקיו",
+        title: "יום 15: חזרה לטוקיו וקניות סיום",
+        sites: "נסיעת שינקנסן חזרה לטוקיו. זמן חופשי לקניות אחרונות, מזכרות ובילוי ברובע שינג'וקו (Shinjuku).",
+        logistics: "בדיקת משקל המזוודות לקראת הטיסה.",
+        hotel: "Hotel Gracery Shinjuku / סביבת טוקיו",
+        mapQuery: "Shinjuku Station Tokyo"
+      },
+      {
+        day: 16,
+        date: "08.10.26",
+        city: "טוקיו 🛫",
+        title: "יום 16: פרידה מיפן וטיסה הביתה",
+        sites: "בוקר רגוע, ביקור אחרון בבית קפה שכונתי, נסיעה לנמל התעופה (נאריטה/האנדה) והמראה הביתה מלאי חוויות!",
+        logistics: "הגעה לשדה התעופה 3.5 שעות לפני הטיסה.",
+        hotel: "טיסה לישראל",
+        mapQuery: "Tokyo Haneda Airport"
+      }
     ];
 
     let currentDayIndex = 0;
 
-    function renderSlider() {
-      const slider = document.getElementById('daysSlider');
-      slider.innerHTML = itinerary.map((item, idx) => `
-        <button class="day-pill ${idx === currentDayIndex ? 'active' : ''}" onclick="selectDay(${idx})">
-          יום ${item.day} • ${item.city}
-        </button>
-      `).join('');
+    // אתחול פס הימים
+    function initDaysScroller() {
+      const container = document.getElementById('daysScroller');
+      container.innerHTML = '';
+      itinerary.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.className = `day-pill ${index === currentDayIndex ? 'active' : ''}`;
+        btn.textContent = `יום ${item.day} • ${item.city.split(' ')[0]}`;
+        btn.onclick = () => selectDay(index);
+        container.appendChild(btn);
+      });
     }
 
-    function renderDay(idx) {
-      const item = itinerary[idx];
-      const container = document.getElementById('mainContent');
-      const comments = getComments(item.day);
-      const photos = getPhotos(item.day);
+    // בחירת יום
+    function selectDay(index) {
+      currentDayIndex = index;
+      document.querySelectorAll('.day-pill').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      renderDayCard();
+    }
 
-      container.innerHTML = `
-        <div class="card">
-          <span class="city-badge">🌸 ${item.city}</span>
-          <div class="day-header">
-            <h1 class="day-title">יום ${item.day}: ${item.title}</h1>
-            <span class="day-date">${item.date}</span>
+    // טעינת תגובות מ-LocalStorage
+    function getComments(dayNum) {
+      const data = localStorage.getItem(`comments_day_${dayNum}`);
+      return data ? JSON.parse(data) : [];
+    }
+
+    // שמירת תגובה חדשה
+    function addComment(dayNum, author, text, imageBase64) {
+      const comments = getComments(dayNum);
+      const newComment = {
+        author: author || "מטייל/ת",
+        text: text,
+        image: imageBase64 || null,
+        time: new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
+      };
+      comments.push(newComment);
+      localStorage.setItem(`comments_day_${dayNum}`, JSON.stringify(comments));
+      renderDayCard();
+    }
+
+    // הצגת הכרטיסייה היומית
+    function renderDayCard() {
+      const day = itinerary[currentDayIndex];
+      const comments = getComments(day.day);
+
+      const commentsHtml = comments.map(c => `
+        <div class="comment-bubble">
+          <div class="comment-meta">
+            <strong>${c.author}</strong>
+            <span>${c.time}</span>
           </div>
+          <div>${c.text}</div>
+          ${c.image ? `<img src="${c.image}" class="comment-img" alt="תמונה">` : ''}
+        </div>
+      `).join('');
 
-          <div class="section-label">מקומות ואתרים:</div>
-          <div class="desc-text">${item.sites}</div>
+      const html = `
+        <div class="card-top">
+          <span class="day-date-label">${day.date}</span>
+          <span class="city-badge">${day.city}</span>
+        </div>
+        <h2 class="card-title">${day.title}</h2>
 
-          <div class="info-box">
-            <strong>💡 לוגיסטיקה וטיפים:</strong>
-            ${item.logistics}
-            <div style="margin-top: 6px;">🏨 <strong>מלון:</strong> ${item.hotel}</div>
+        <div class="section-box">
+          <div class="section-title">מקומות ואתרים:</div>
+          <div class="section-body">${day.sites}</div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-item">
+            <span>💡</span>
+            <strong>לוגיסטיקה וטיפים:</strong> ${day.logistics}
           </div>
-
-          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map)}" target="_blank">
-            📍 פתח מפה וניווט ב-Google Maps
-          </a>
-
-          <div class="community-card">
-            <div class="section-label">💬 טיפים והמלצות מהשטח:</div>
-            <div class="comments-list" id="commentsList">
-              ${comments.length === 0 ? '<div style="font-size:0.88rem; color:var(--text-muted);">אין עדיין תגובות ליום זה. מוזמנים להוסיף טיפ ראשון!</div>' : 
-                comments.map(c => `
-                  <div class="comment-item">
-                    <div class="comment-author">${c.name}:</div>
-                    <div>${c.text}</div>
-                  </div>
-                `).join('')}
-            </div>
-
-            <div class="input-row">
-              <input type="text" id="authorName" placeholder="השם שלך">
-              <textarea id="commentText" rows="2" placeholder="המלצה על מקום / מסעדה / טיפ..."></textarea>
-              <button class="btn-action" onclick="addComment(${item.day})">הוסף המלצה</button>
-            </div>
-
-            <div class="section-label" style="margin-top: 20px;">📸 תמונות מהיום:</div>
-            <div class="photos-gallery" id="photosGallery">
-              ${photos.map(p => `<img src="${p}" onclick="window.open('${p}')">`).join('')}
-            </div>
-            <input type="file" accept="image/*" id="photoInput" style="display:none;" onchange="uploadPhoto(event, ${item.day})">
-            <button class="btn-photo" onclick="document.getElementById('photoInput').click()">📷 העלאת תמונה מיום זה</button>
+          <div class="info-item">
+            <span>🏨</span>
+            <strong>מלון:</strong> ${day.hotel}
           </div>
         </div>
+
+        <a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(day.mapQuery)}" target="_blank">
+          📍 פתח מפה וניווט ב-Google Maps
+        </a>
+
+        <div class="community-box">
+          <div class="community-title">💬 טיפים והמלצות מהשטח:</div>
+          <div class="comment-list" id="commentList">
+            ${comments.length ? commentsHtml : '<p style="font-size:13px; color:#94a3b8;">אין עדיין תגובות ליום זה. היו הראשונים להמליץ!</p>'}
+          </div>
+
+          <form class="comment-form" onsubmit="handleCommentSubmit(event, ${day.day})">
+            <input type="text" id="commentAuthor" placeholder="השם שלך" required>
+            <textarea id="commentText" rows="2" placeholder="שתפו המלצה, טיפ או מקום שאהבתם..." required></textarea>
+            
+            <label class="file-upload-label">
+              📷 הוסף תמונה
+              <input type="file" id="commentFile" accept="image/*" onchange="previewUpload(this)">
+            </label>
+            <span id="fileChosenStatus" style="font-size:11px; color:#64748b;"></span>
+
+            <button type="submit" class="btn-comment">פרסם המלצה ליום זה</button>
+          </form>
+        </div>
       `;
+
+      document.getElementById('dayCard').innerHTML = html;
     }
 
-    function selectDay(idx) {
-      currentDayIndex = idx;
-      renderSlider();
-      renderDay(idx);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    let currentBase64Image = null;
+
+    function previewUpload(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentBase64Image = e.target.result;
+          document.getElementById('fileChosenStatus').textContent = 'תמונה נבחרה בהצלחה!';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
 
-    function getComments(day) {
-      return JSON.parse(localStorage.getItem('japan_comments_' + day) || '[]');
+    function handleCommentSubmit(event, dayNum) {
+      event.preventDefault();
+      const author = document.getElementById('commentAuthor').value;
+      const text = document.getElementById('commentText').value;
+      addComment(dayNum, author, text, currentBase64Image);
+      currentBase64Image = null;
     }
 
-    function addComment(day) {
-      const name = document.getElementById('authorName').value.trim() || 'מטייל/ת';
-      const text = document.getElementById('commentText').value.trim();
-      if (!text) return;
-      const comments = getComments(day);
-      comments.push({ name, text });
-      localStorage.setItem('japan_comments_' + day, JSON.stringify(comments));
-      renderDay(currentDayIndex);
-    }
-
-    function getPhotos(day) {
-      return JSON.parse(localStorage.getItem('japan_photos_' + day) || '[]');
-    }
-
-    function uploadPhoto(event, day) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const photos = getPhotos(day);
-        photos.push(e.target.result);
-        localStorage.setItem('japan_photos_' + day, JSON.stringify(photos));
-        renderDay(currentDayIndex);
-      };
-      reader.readAsDataURL(file);
-    }
-
-    renderSlider();
-    renderDay(0);
+    // הפעלה ראשונית
+    initDaysScroller();
+    renderDayCard();
   </script>
 </body>
 </html>
